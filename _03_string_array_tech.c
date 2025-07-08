@@ -86,6 +86,58 @@ void update_str(char *str, int index, char new_char){
     printf(str);
   }
 }
+// special array techniques
+void reverse_array(int list1[], int size){
+  int left = 0 ;
+  int right = size - 1;
+  while (left < right){
+    int temp = list1[left];
+    list1[left] = list1[right];
+    list1[right] = temp;
+    left++;
+    right--;
+  }
+}
+bool palin(char *str){
+  int left = 0;
+  int right = strlen(str) -1;
+  while (left < right){
+    if (str[left] != str[right]){
+      return false;
+    }
+    left++;
+    right--;
+  }
+  return true;
+}
+int max_subarray(int arr[], int size, int k){
+  if (k<= 0|| k>size){
+    return -1;
+  }
+  int current_sum = 0;
+  for (int i=0; i<k; i++){
+    current_sum += arr[i];
+  }
+  int max_sum = current_sum;
+  for (int i = k; i < size; i++){
+    current_sum += arr[i] - arr[i-k];
+    if (current_sum > max_sum){
+      max_sum = current_sum;
+    }
+  }
+  return max_sum;
+}
+
+void print_array(int list1[], int size){
+  for (int i = 0; i < size; i++){
+    if (i == size - 1){
+      printf("%d", list1[i]);
+    }
+    else{
+      printf("%d, ", list1[i]);
+    }
+  }
+}
 int main() { 
   int list1[10] = {1, 3, 0, 5, 4} ;
   //int odd = odd_counter(list1, 5);
@@ -103,5 +155,12 @@ int main() {
   int num = find_string(str1, 'c');
   printf("\nIndex of char: %d", num);
   update_str(str1, 1, 'z');
+  char str[] = "abca";
+  reverse_array(list1, 5);
+  print_array(list1, 5);
+  bool check = palin(str);
+  printf("\n%d", check);
+  int num_array = max_subarray(list1, 5, 2);
+  printf("\n%d", num_array);
 }
 
