@@ -1,4 +1,5 @@
 #include <stdio.h> 
+#include <string.h>
 void print_array(int list1[], int size){
   for (int i = 0; i < size; i++){
     if (i == size - 1){
