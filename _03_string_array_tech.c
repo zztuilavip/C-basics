@@ -57,6 +57,34 @@ int delete(int list1[], int size, int index){
   list1[size-1] = 0;
   return 0;
 }
+// string techniques
+void check_string(char *str)
+{
+  for (int i=0; str[i] != '\0'; i++){
+    printf("%c%d,", str[i], i);
+  
+  }
+}
+int find_string(char *str, char target_char)
+{
+  for (int i=0; str[i] != '\0'; i++){
+    if (str[i] == target_char){
+      return i;
+    }
+  }  
+  return -1;
+}
+
+void update_str(char *str, int index, char new_char){
+  if (index < 0 || index >= strlen(str)){
+    printf("Index out of range.");
+  }
+  else {
+    str[index] = new_char;
+    printf("\n");
+    printf(str);
+  }
+}
 int main() { 
   int list1[10] = {1, 3, 0, 5, 4} ;
   //int odd = odd_counter(list1, 5);
@@ -69,5 +97,10 @@ int main() {
   //printf("%d", res);
   delete(list1, 6, 2);
   print_array(list1, 10);
+  char str1[] = "abcde";
+  check_string(str1);
+  int num = find_string(str1, 'c');
+  printf("\nIndex of char: %d", num);
+  update_str(str1, 1, 'z');
 }
 
