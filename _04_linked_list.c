@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h
 typedef struct linkedlist_single{
   int data;
   struct linkedlist_single *next;
