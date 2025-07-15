@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.>
 #include <stdlib.h>
 typedef struct linkedlist_single{
   int data;
