@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-in main() {
+int main() {
     int myvar = 10;
     int *pointertovar;
     pointertovar = &myvar;
