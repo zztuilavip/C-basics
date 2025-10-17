@@ -1,39 +1,59 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int kmp_search(char A[], char P[], int len_a, int len_p);
-int main(int argc, char *argv[]){
-    char array[16] = "---abcxxxabcy---";
-    char pat[10] = "abcxxxabcy";
-    int x = kmp_search(array, pat, 16, 10);
-    printf("%d??", x);
-}
+void print_int_array(int A[], int n);
+int prefix_array(int F[], char P[], int len_p);
 
-int kmp_search(char A[], char P[], int len_a, int len_p){
-    int prefix_len_arr[10] = {0};
-    int idx = 0;
-    for(int i = 1; i <= len_p; i++){
-        if(P[i] == P[idx]){
-            idx++;
-            prefix_len_arr[i] = idx;
+int prefix_array(int failure_array[], char P[], int len_p){
+    int s = 2;
+    int c = 0;
+    failure_array[0] = -1;
+    failure_array[1] = 0;
+    while(s < len_p){
+        if(P[c] == P[s - 1]){
+            c++;
+            failure_array[s] = c;
+            s++;
+        }
+        else if(c > 0){
+            c = failure_array[c];
         }
         else{
-            idx = 0;
-        }
-    }
-    //print_int_array(prefix_len_arr, 10);
-    int a_idx = 0, p_idx = 0;
-    while(a_idx < len_a - len_p){
-        if(A[a_idx + p_idx] == P[p_idx]){
-            p_idx++;
-            if(p_idx == len_p){
-                return a_idx;
-            }
-        }
-        else{
-            a_idx = a_idx + p_idx - prefix_len_arr[p_idx];
-            p_idx = __max(prefix_len_arr[p_idx], 0);
+            failure_array[s] = 0;
+            s++;
         }
     }
     return 0;
+}
+
+void print_int_array(int A[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf(" %3d", A[i]);
+    }
+}
+
+int kmp_search(char T[], char P[], int len_t, int len_p){
+    int F[len_p];
+    prefix_array(F, P, len_p);
+    int s = 0, i = 0;
+    while (s < len_t - len_p){
+        if(T[s + i] == P[i]){
+            i++;
+            if(i == len_p){
+                return s;
+            }
+        }
+        else{
+            s = s + i - F[i];
+            i = F[i] > 0 ? F[i] : 0;
+        }
+    }
+    return -1;
+}
+
+int main(int argc, char *argv[]){
+    char pattern[7] = "#sells#";
+    char text[20] = "she#sells#sea#shells";
+    int s = kmp_search(text, pattern, 20, 7);
+    printf("%d", s);
 }
