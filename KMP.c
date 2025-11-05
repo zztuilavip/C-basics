@@ -57,3 +57,4 @@ int main(int argc, char *argv[]){
     int s = kmp_search(text, pattern, 20, 7);
     printf("%d", s);
 }
+
